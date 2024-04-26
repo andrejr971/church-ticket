@@ -1,7 +1,6 @@
-import { Ticket } from 'lucide-react'
 import Image from 'next/image'
 
-import { Button, Footer, Hero, LogoAdf, Separator } from '@/components'
+import { Footer, Hero, LogoAdf, ModalTicket, Separator } from '@/components'
 import { gradientColors } from '@/lib/colors'
 
 export default function Home() {
@@ -21,10 +20,7 @@ export default function Home() {
           adolescentes, aprenda a enfrentar desafios com fé e resiliência.
         </p>
 
-        <Button className="flex gap-3">
-          <span>Garantir ingresso</span>
-          <Ticket />
-        </Button>
+        <ModalTicket />
       </section>
 
       <section className="flex flex-col items-center justify-center gap-4 p-4">
@@ -59,10 +55,7 @@ export default function Home() {
           </p>
         </div>
 
-        <Button className="flex gap-3">
-          <span>Garantir ingresso</span>
-          <Ticket />
-        </Button>
+        <ModalTicket />
       </section>
 
       <section className="relative flex w-full justify-center p-4">
@@ -120,10 +113,7 @@ export default function Home() {
             </div>
           </div>
 
-          <Button className="flex gap-3">
-            <span>Garantir ingresso</span>
-            <Ticket />
-          </Button>
+          <ModalTicket />
         </div>
       </section>
 

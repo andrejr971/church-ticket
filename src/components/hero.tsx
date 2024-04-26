@@ -1,10 +1,10 @@
-import { Ticket } from 'lucide-react'
 import Image from 'next/image'
 
 import { Banner } from './banner'
 import { LogoAdf } from './logo-adf'
+import { ModalTicket } from './modal-ticket'
 import { Slogan } from './slogan'
-import { Button, Separator } from './ui'
+import { Separator } from './ui'
 
 export function Hero() {
   return (
@@ -31,10 +31,7 @@ export function Hero() {
           <Slogan />
         </div>
 
-        <Button className="flex gap-3">
-          <span>Garantir ingresso</span>
-          <Ticket />
-        </Button>
+        <ModalTicket />
 
         <div className="flex w-full max-w-[640px] flex-col items-center gap-4 rounded-lg border bg-background p-4 lg:max-w-[1064px] lg:flex-row">
           <div className="flex w-full flex-col items-center gap-1">
