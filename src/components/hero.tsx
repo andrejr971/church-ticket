@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import { Banner } from './banner'
 import { LogoAdf } from './logo-adf'
 import { ModalTicket } from './modal-ticket'
@@ -10,17 +8,6 @@ export function Hero() {
   return (
     <section className="relative">
       <Banner />
-
-      <div className="absolute left-0 right-0 top-0 -z-10 flex h-[861px] items-center justify-center overflow-hidden">
-        <Image
-          src="/images/hero.png"
-          width={1280}
-          height={861}
-          alt="background hero"
-          quality={100}
-          className="h-[861px] w-[1280px] object-cover"
-        />
-      </div>
 
       <div className="flex flex-col items-center justify-center gap-10 p-4 pb-20 pt-10 lg:pt-20">
         <div className="flex flex-col items-center justify-center gap-2">

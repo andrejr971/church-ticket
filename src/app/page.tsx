@@ -54,8 +54,6 @@ export default function Home() {
             desafios com fé e resiliência
           </p>
         </div>
-
-        <ModalTicket />
       </section>
 
       <section className="relative flex w-full justify-center p-4">

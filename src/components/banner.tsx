@@ -12,7 +12,7 @@ export function Banner() {
       <ModalTicket
         configButtonTrigger={{
           className:
-            'hidden sm:w-auto rounded-full border border-white px-8 h-auto py-1 text-sm font-medium text-white transition-colors hover:bg-white hover:text-primary md:flex',
+            'hidden sm:w-auto rounded-md border border-white px-8 h-auto py-1 text-sm font-medium text-white transition-colors hover:bg-white hover:text-primary md:flex',
           hasIcon: false,
           variant: 'outline',
         }}
