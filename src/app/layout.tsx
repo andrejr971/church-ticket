@@ -4,7 +4,10 @@ import type { Metadata } from 'next'
 import { Poppins as FontSans } from 'next/font/google'
 import Image from 'next/image'
 
+import { Toaster } from '@/components'
 import { cn } from '@/lib/utils'
+
+import { AppProvider } from './provider'
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -41,7 +44,10 @@ export default function RootLayout({
           />
         </div>
 
-        {children}
+        <AppProvider>
+          {children}
+          <Toaster />
+        </AppProvider>
       </body>
     </html>
   )
