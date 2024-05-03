@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { Footer, Hero, LogoAdf, ModalTicket, Separator } from '@/components'
+import { Hero, LogoAdf, ModalTicket, Separator } from '@/components'
 import { gradientColors } from '@/lib/colors'
 
 export default function Home() {
@@ -114,8 +114,6 @@ export default function Home() {
           <ModalTicket />
         </div>
       </section>
-
-      <Footer />
     </div>
   )
 }

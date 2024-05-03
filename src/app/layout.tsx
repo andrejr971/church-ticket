@@ -4,7 +4,7 @@ import type { Metadata } from 'next'
 import { Poppins as FontSans } from 'next/font/google'
 import Image from 'next/image'
 
-import { Toaster } from '@/components'
+import { Footer, Toaster } from '@/components'
 import { cn } from '@/lib/utils'
 
 import { AppProvider } from './provider'
@@ -44,10 +44,16 @@ export default function RootLayout({
           />
         </div>
 
-        <AppProvider>
-          {children}
-          <Toaster />
-        </AppProvider>
+        <div className="flex h-screen flex-col">
+          <main className="flex-1">
+            <AppProvider>
+              {children}
+              <Toaster />
+            </AppProvider>
+          </main>
+
+          <Footer />
+        </div>
       </body>
     </html>
   )

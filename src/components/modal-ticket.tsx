@@ -1,18 +1,12 @@
 'use client'
 
-import { useMutation } from '@apollo/client'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Ticket } from 'lucide-react'
+import { Loader2, Ticket } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
 import { z } from 'zod'
 
-import {
-  CreateInscriptionMutation,
-  createInscriptionMutation,
-  publishInscriptionMutation,
-  PublishLectureMutation,
-} from '@/graphql'
+import { api } from '@/lib/api'
 
 import {
   Button,
@@ -113,16 +107,6 @@ export function ModalTicket({
       isGuests: 'no',
     },
   })
-  const [createInscription] = useMutation<
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    any,
-    CreateInscriptionMutation
-  >(createInscriptionMutation)
-  const [publishInscription] = useMutation<
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    any,
-    PublishLectureMutation
-  >(publishInscriptionMutation)
 
   const { toast } = useToast()
 
@@ -141,16 +125,7 @@ export function ModalTicket({
     }
 
     try {
-      const response = await createInscription({
-        variables: data,
-      })
-
-      const { createLecture } = response.data
-      await publishInscription({
-        variables: {
-          id: createLecture.id,
-        },
-      })
+      await api.post('/api/inscriptions', data)
 
       toast({
         title: 'Inscrição garantida com sucesso',
@@ -287,8 +262,17 @@ export function ModalTicket({
             className="flex w-full max-w-full gap-3"
             disabled={loading}
           >
-            <span>Garantir ingresso</span>
-            <Ticket />
+            {loading ? (
+              <>
+                <span>Gerando ingresso</span>
+                <Loader2 className="size-4 animate-spin" />
+              </>
+            ) : (
+              <>
+                <span>Garantir ingresso</span>
+                <Ticket />
+              </>
+            )}
           </Button>
         </form>
       </SheetContent>

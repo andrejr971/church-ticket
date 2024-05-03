@@ -2,6 +2,7 @@ import { gradientColors } from '@/lib/colors'
 
 import { ButtonShared } from './components/button-shared'
 import { EffectConfetti } from './components/confetti'
+import { UploadProfile } from './components/upload'
 
 export default function SuccessPage() {
   return (
@@ -39,6 +40,8 @@ export default function SuccessPage() {
 
           <ButtonShared />
         </div>
+
+        <UploadProfile />
       </div>
     </>
   )

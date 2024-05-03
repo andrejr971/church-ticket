@@ -6,6 +6,7 @@ import { CalendarDays, Download, MapPin, Repeat, Share } from 'lucide-react'
 import Image from 'next/image'
 import { ChangeEvent, useRef, useState } from 'react'
 
+import { api } from '@/lib/api'
 import { gradientColors } from '@/lib/colors'
 
 import { LogoAdf } from './logo-adf'
@@ -39,25 +40,27 @@ export function Ticket({ withDownload = false, profile }: TicketProps) {
       const imgData = await generateTicket()
       if (!imgData) throw new Error('Failed to generate ticket image')
 
-      const base64ImageContent = imgData.replace(
-        /^data:image\/(png|jpg);base64,/,
-        '',
-      )
-      const blob = base64ToBlob(base64ImageContent, 'image/png')
+      // const base64ImageContent = imgData.replace(
+      //   /^data:image\/(png|jpg);base64,/,
+      //   '',
+      // )
+      // const blob = base64ToBlob(base64ImageContent, 'image/png')
 
-      fileDownload(blob, 'ticket.png')
+      // const data = new FormData()
+      // data.append('ticket', imgData)
+      // console.log(new File([blob], 'ticket.png'))
+
+      const response = await api.post('/api/ticket', {
+        ticket: imgData,
+      })
+
+      const { ticket } = response.data
+
+      console.log(ticket.url)
+      fileDownload(ticket.url, 'ticket.png')
     } catch (error) {
       console.error('Error downloading image:', error)
     }
-  }
-
-  function base64ToBlob(base64: string, mimeType: string): Blob {
-    const byteCharacters = atob(base64)
-    const byteNumbers = Array.from(byteCharacters).map((char) =>
-      char.charCodeAt(0),
-    )
-    const byteArray = new Uint8Array(byteNumbers)
-    return new Blob([byteArray], { type: mimeType })
   }
 
   const handleProfile = (event: ChangeEvent<HTMLInputElement>) => {

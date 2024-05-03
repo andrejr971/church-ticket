@@ -1,11 +1,17 @@
 import { gql } from '@apollo/client'
 
+import { InscriptionsDTO } from '@/dtos/inscriptions'
+
 export type CreateInscriptionMutation = {
   name: string
   isCristian: boolean
   church: string
   isGuests: boolean
   guests: number
+}
+
+export type CreateInscriptionMutationVariables = {
+  createLecture: InscriptionsDTO
 }
 
 export const createInscriptionMutation = gql`
