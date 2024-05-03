@@ -1,5 +1,7 @@
 import { ButtonExport, TableInscriptions, Totals } from './components'
 
+export const revalidate = 10
+
 export default function Inscriptions() {
   return (
     <div className="mx-auto flex max-w-[1216px] flex-col gap-5 p-4 py-20">

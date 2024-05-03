@@ -12,7 +12,6 @@ const { getClient } = registerApolloClient(
         headers: {
           Authorization: `Bearer ${env.NEXT_PUBLIC_GRAPH_ACCESS_TOKEN}`,
         },
-        fetchOptions: { cache: 'no-store' },
       }),
     }),
 )

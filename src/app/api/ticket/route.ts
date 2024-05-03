@@ -4,9 +4,6 @@ import {
   CreateAssetMutationProps,
   createAssetMutations,
   CreateAssetMutationVariables,
-  publishAssetMutation,
-  PublishAssetMutationProps,
-  PublishAssetMutationVariables,
 } from '@/graphql/mutations/asset'
 import { api } from '@/lib/api'
 import { clientServer } from '@/lib/client'
