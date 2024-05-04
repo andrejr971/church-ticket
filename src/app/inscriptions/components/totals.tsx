@@ -8,7 +8,7 @@ import { api } from '@/lib/api'
 export function Totals() {
   const { data, isLoading } = useQuery({
     queryKey: ['totalInscriptions'],
-    queryFn: async () => await api.get('/api/inscriptions/total'),
+    queryFn: async () => await api.get('/api/inscriptions/total', {}),
     refetchOnWindowFocus: true,
   })
 

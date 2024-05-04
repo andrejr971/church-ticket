@@ -4,6 +4,7 @@ import { clientServer } from '@/lib/client'
 export async function GET() {
   const { data } = await clientServer.query<TotalInscriptionsQueryProps>({
     query: totalInscriptionsQuery,
+    fetchPolicy: 'network-only',
   })
 
   if (!data) {

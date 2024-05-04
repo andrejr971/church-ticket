@@ -17,6 +17,7 @@ export async function GET() {
     variables: {
       first: 2000,
     },
+    fetchPolicy: 'network-only',
   })
 
   const workbook = new ExcelJS.Workbook()

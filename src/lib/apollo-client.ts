@@ -13,7 +13,7 @@ export const makeClient = () => {
     headers: {
       Authorization: `Bearer ${env.NEXT_PUBLIC_GRAPH_ACCESS_TOKEN}`,
     },
-    fetchOptions: { cache: 'no-store' },
+    fetchOptions: { cache: 'no-cache' },
   })
 
   return new NextSSRApolloClient({

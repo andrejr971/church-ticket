@@ -1,6 +1,6 @@
 import './globals.css'
 
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Poppins as FontSans } from 'next/font/google'
 import Image from 'next/image'
 
@@ -15,13 +15,19 @@ const fontSans = FontSans({
   weight: ['100', '200', '300', '400', '500', '600', '700'],
 })
 
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+}
+
 export const metadata: Metadata = {
   metadataBase: new URL('https://church-ticket.vercel.app/'),
   title: {
     default: 'ChurchTicket',
     template: '%s | ChurchTicket',
   },
-  viewport: '"width=device-width, user-scalable=no',
   keywords: ['church', 'ticket', 'event', 'christian', 'faith', 'palestra'],
   description:
     'Descubra novas perspectivas sobre ansiedade e depressão nesta palestra inspiradora. Com insights práticos e orientações para jovens e adolescentes, aprenda a enfrentar desafios com fé e resiliência.',

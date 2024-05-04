@@ -6,7 +6,7 @@ import { gradientColors } from '@/lib/colors'
 
 export function ButtonShared() {
   function handleSharedLink() {
-    const message = `Se liga galera \nno dia 26 de Maio às 08h00, na Sede Regional de Vargem Grande Pta., rua Nova Esperança, 64 - Jd. São Judas, realiazaremos uma palestra com os Adolescentes e Jovens, sobre Ansiedade e Depressão\nE você é o meu convidado\n \n\nPara mais informações acesse o link: \nhttps://church-ticket.vercel.app`
+    const message = `Se liga galera \nno dia 26 de Maio às 08h00, na Sede Regional de Vargem Grande Pta., rua Nova Esperança, 64 - Jd. São Judas, realizaremos uma palestra com os Adolescentes e Jovens, sobre Ansiedade e Depressão\nE você é o meu convidado\n \n\nPara mais informações acesse o link: \nhttps://church-ticket.vercel.app`
 
     let url = ''
 
@@ -28,11 +28,20 @@ export function ButtonShared() {
       navigator.share({
         title: 'Faça a sua inscrição',
         text: message,
+        files: [
+          new File(
+            ['banner.jpg'],
+            `${window.location.origin}/images/banner.jpg`,
+            {
+              type: 'image/jpg',
+            },
+          ),
+        ],
       })
     } else {
       window.location.href = `${url}?text=${encodeURIComponent(message)}&img=${
         window.location.origin
-      }/assets/images/banner.jpg`
+      }/images/banner.jpg`
     }
   }
 

@@ -72,6 +72,7 @@ export async function GET(request: NextRequest) {
       first,
       skip,
     },
+    fetchPolicy: 'network-only',
   })
 
   if (!data) {
