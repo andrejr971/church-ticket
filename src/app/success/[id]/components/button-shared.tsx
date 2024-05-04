@@ -25,15 +25,21 @@ export function ButtonShared() {
     }
 
     if ('share' in navigator) {
-      navigator.share({
-        title: 'Faça a sua inscrição',
-        text: message,
-        files: [
-          new File(['banner.jpg'], `/images/banner.jpg`, {
-            type: 'image/jpg',
-          }),
-        ],
-      })
+      fetch('/images/banner.jpg')
+        .then((response) => response.blob())
+        .then((blob) => {
+          const file = new File([blob], 'banner.jpg', { type: 'image/jpg' })
+          navigator
+            .share({
+              files: [file],
+              title: 'Banner',
+              text: 'Aqui está o seu banner.',
+            })
+            .then(() => console.log('Arquivo compartilhado com sucesso!'))
+            .catch((error) =>
+              console.log('Erro ao compartilhar o arquivo', error),
+            )
+        })
     } else {
       window.location.href = `${url}?text=${encodeURIComponent(message)}&img=${
         window.location.origin
