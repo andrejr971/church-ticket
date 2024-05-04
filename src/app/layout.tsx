@@ -21,6 +21,8 @@ export const metadata: Metadata = {
     default: 'ChurchTicket',
     template: '%s | ChurchTicket',
   },
+  viewport: '"width=device-width, user-scalable=no',
+  keywords: ['church', 'ticket', 'event', 'christian', 'faith', 'palestra'],
   description:
     'Descubra novas perspectivas sobre ansiedade e depressão nesta palestra inspiradora. Com insights práticos e orientações para jovens e adolescentes, aprenda a enfrentar desafios com fé e resiliência.',
 }
