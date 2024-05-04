@@ -29,13 +29,9 @@ export function ButtonShared() {
         title: 'Faça a sua inscrição',
         text: message,
         files: [
-          new File(
-            ['banner.jpg'],
-            `${window.location.origin}/images/banner.jpg`,
-            {
-              type: 'image/jpg',
-            },
-          ),
+          new File(['banner.jpg'], `/images/banner.jpg`, {
+            type: 'image/jpg',
+          }),
         ],
       })
     } else {
