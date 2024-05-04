@@ -28,7 +28,7 @@ export function ButtonShared() {
       navigator.share({
         title: 'Faça a sua inscrição',
         text: message,
-        url: window.location.href,
+        url: window.location.hostname,
       })
     } else {
       window.location.href = `${url}?text=${encodeURIComponent(message)}&img=${
