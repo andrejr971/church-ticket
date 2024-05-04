@@ -125,12 +125,12 @@ export function ModalTicket({
     }
 
     try {
-      await api.post('/api/inscriptions', data)
+      const response = await api.post('/api/inscriptions', data)
 
       toast({
         title: 'Inscrição garantida com sucesso',
       })
-      router.push('/success')
+      router.push(`/success/${response.data.id}`)
     } catch (error) {
       toast({
         title: 'Erro ao garantir ingresso',

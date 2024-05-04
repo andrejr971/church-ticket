@@ -1,13 +1,25 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import * as htmlToImage from 'html-to-image'
+// import * as htmlToImage from 'html-to-image'
+import { useToBlob, useToPng } from '@hugocxl/react-to-image'
+import htmlToImage from 'dom-to-image'
+import html2canvas from 'html2canvas-next'
 import fileDownload from 'js-file-download'
-import { CalendarDays, Download, MapPin, Repeat, Share } from 'lucide-react'
+import {
+  CalendarDays,
+  Download,
+  Loader2,
+  MapPin,
+  Repeat,
+  Share,
+} from 'lucide-react'
 import Image from 'next/image'
 import { ChangeEvent, useRef, useState } from 'react'
 
 import { api } from '@/lib/api'
 import { gradientColors } from '@/lib/colors'
+import { base64ToBlob } from '@/utils/convert-file'
 
 import { LogoAdf } from './logo-adf'
 import { BackgroundTicket } from './svgs'
@@ -21,45 +33,99 @@ interface TicketProps {
 export function Ticket({ withDownload = false, profile }: TicketProps) {
   const [profileFile, setProfile] = useState<File | null>(profile)
   const profileUrl = profileFile ? URL.createObjectURL(profileFile) : ''
+  const [isLoaded, setIsLoaded] = useState(false)
 
-  const ticketRef = useRef(null)
+  // const ticketRef = useRef<HTMLDivElement>(null)
+
+  const [_, convert, ticketRef] = useToPng<HTMLDivElement>({
+    canvasHeight: 1920.13,
+    canvasWidth: 1084,
+    quality: 1,
+    onSuccess: async (data) => {
+      console.log(data)
+      await handleDownloadImage(data)
+    },
+  })
 
   const generateTicket = async () => {
-    if (ticketRef.current) {
-      const imgData = await htmlToImage.toPng(ticketRef.current, {
-        quality: 1,
-        canvasHeight: 1920.13,
-        canvasWidth: 1084,
-      })
-      return imgData
-    }
+    // if (ticketRef.current) {
+    //   const originalWidth = ticketRef.current.style.width
+    //   const originalHeight = ticketRef.current.style.height
+    //   // Defina o tamanho do elemento para o tamanho desejado da imagem
+    //   ticketRef.current.style.width = '1084px'
+    //   ticketRef.current.style.height = '1920.13px'
+    //   const imgData = await htmlToImage
+    //     .toBlob(ticketRef.current, {
+    //       quality: 1,
+    //       // canvasHeight: 1920.13,
+    //       // canvasWidth: 1084,
+    //       // height: 1920.13,
+    //       // width: 1084,
+    //     })
+    //     .then((blob) => blob)
+    //   ticketRef.current.style.width = originalWidth
+    //   ticketRef.current.style.height = originalHeight
+    //   return imgData
+    // .then((dataUrl) => {
+    //   const link = document.createElement('a')
+    //   link.download = 'my-image-name.jpeg'
+    //   link.href = dataUrl
+    //   link.click()
+    // })
+    // return imgData
+    // const canvas = await html2canvas(ticketRef.current, {
+    //   windowHeight: 1920.13,
+    //   windowWidth: 1084,
+    // })
+    // return canvas.toDataURL('image/png')
+    // }
   }
 
-  const handleDownloadImage = async () => {
+  const handleDownloadImage = async (imgData: string) => {
+    setIsLoaded(true)
     try {
-      const imgData = await generateTicket()
+      // await generateTicket()
+      // const imgData = await generateTicket()
+      // console.log(imgData)
       if (!imgData) throw new Error('Failed to generate ticket image')
 
-      // const base64ImageContent = imgData.replace(
-      //   /^data:image\/(png|jpg);base64,/,
-      //   '',
-      // )
-      // const blob = base64ToBlob(base64ImageContent, 'image/png')
+      // // fileDownload(imgData, 'ticket.png')
+      // // alert(imgData)
+
+      const base64ImageContent = imgData.replace(
+        /^data:image\/(png|jpg);base64,/,
+        '',
+      )
+      const blob = base64ToBlob(base64ImageContent, 'image/png')
+
+      const url = window.URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'ticket.png'
+      a.click()
 
       // const data = new FormData()
       // data.append('ticket', imgData)
       // console.log(new File([blob], 'ticket.png'))
 
-      const response = await api.post('/api/ticket', {
-        ticket: imgData,
-      })
+      // const { data } = await api.post(
+      //   '/api/ticket',
+      //   {
+      //     profile: profileFile,
+      //   },
+      //   {
+      //     responseType: 'blob',
+      //   },
+      // )
 
-      const { ticket } = response.data
+      // const { ticket } = response.data
 
-      console.log(ticket.url)
-      fileDownload(ticket.url, 'ticket.png')
+      // console.log(ticket.url)
+      // fileDownload(data, 'ticket.png')
     } catch (error) {
-      console.error('Error downloading image:', error)
+      alert(`${error}`)
+    } finally {
+      setIsLoaded(false)
     }
   }
 
@@ -69,20 +135,20 @@ export function Ticket({ withDownload = false, profile }: TicketProps) {
     setProfile(file)
   }
 
-  const handleShareImage = async () => {
-    const imgData = await generateTicket()
-    if (!imgData) return
-    const shareData = {
-      title: 'Ticket',
-      text: 'Check out my ticket!',
-      files: [new File([imgData], 'ticket.png', { type: 'image/png' })],
-    }
-    if (navigator.share) {
-      navigator.share(shareData)
-    } else {
-      console.log('Sharing is not supported on this device')
-    }
-  }
+  // const handleShareImage = async () => {
+  //   const imgData = await generateTicket()
+  //   if (!imgData) return
+  //   const shareData = {
+  //     title: 'Ticket',
+  //     text: 'Check out my ticket!',
+  //     files: [new File([imgData], 'ticket.png', { type: 'image/png' })],
+  //   }
+  //   if (navigator.share) {
+  //     navigator.share(shareData)
+  //   } else {
+  //     console.log('Sharing is not supported on this device')
+  //   }
+  // }
 
   return (
     <div className="flex h-full flex-col items-center gap-4">
@@ -100,14 +166,16 @@ export function Ticket({ withDownload = false, profile }: TicketProps) {
                 <div
                   className={`absolute top-0 z-10 h-[200px] w-full ${gradientColors.blueToTransparent} rounded-lg`}
                 ></div>
-                <Image
-                  src={profileUrl}
-                  alt="Profile Picture"
-                  width={320}
-                  height={200}
-                  quality={100}
-                  className="z-0 h-[200px] w-[320px] rounded-lg object-cover"
-                />
+                {profileUrl && (
+                  <Image
+                    src={profileUrl}
+                    alt="Profile Picture"
+                    width={320}
+                    height={200}
+                    quality={100}
+                    className="z-0 h-[200px] w-[320px] rounded-lg object-cover"
+                  />
+                )}
               </div>
               <div className="z-10 flex w-full flex-col items-center gap-1">
                 <span className="text-sm text-accent-foreground">Nome</span>
@@ -191,14 +259,20 @@ export function Ticket({ withDownload = false, profile }: TicketProps) {
       {withDownload && (
         <div className="flex h-24 w-full flex-1 flex-col gap-2 bg-background p-2">
           <div className="flex w-full gap-2">
-            <Button className="flex w-full gap-2" onClick={handleDownloadImage}>
-              Baixar
-              <Download className="h-5 w-5" />
+            <Button className="flex w-full gap-2" onClick={convert}>
+              {isLoaded ? (
+                <Loader2 className="h-5 w-5 animate-spin" />
+              ) : (
+                <>
+                  Baixar
+                  <Download className="h-5 w-5" />
+                </>
+              )}
             </Button>
             <Button
               variant="outline"
               className="flex w-full gap-2"
-              onClick={handleShareImage}
+              // onClick={handleShareImage}
               disabled={!navigator.share}
             >
               Compartilhar

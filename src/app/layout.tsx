@@ -16,8 +16,13 @@ const fontSans = FontSans({
 })
 
 export const metadata: Metadata = {
-  title: 'ChurchTicket',
-  description: 'ChurchTicket is a platform for managing church events.',
+  metadataBase: new URL('https://church-ticket.vercel.app/'),
+  title: {
+    default: 'ChurchTicket',
+    template: '%s | ChurchTicket',
+  },
+  description:
+    'Descubra novas perspectivas sobre ansiedade e depressão nesta palestra inspiradora. Com insights práticos e orientações para jovens e adolescentes, aprenda a enfrentar desafios com fé e resiliência.',
 }
 
 export default function RootLayout({
@@ -33,18 +38,18 @@ export default function RootLayout({
           fontSans.variable,
         )}
       >
-        <div className="absolute left-0 right-0 top-0 -z-10 flex h-[861px] items-center justify-center overflow-hidden">
-          <Image
-            src="/images/hero.png"
-            width={1280}
-            height={861}
-            alt="background hero"
-            quality={100}
-            className="h-[861px] w-[1280px] object-cover"
-          />
-        </div>
+        <div className="relative flex h-screen flex-col overflow-x-hidden">
+          <div className="absolute left-0 right-0 top-0 -z-10 flex h-[861px] items-center justify-center overflow-hidden">
+            <Image
+              src="/images/hero.png"
+              width={1280}
+              height={861}
+              alt="background hero"
+              quality={100}
+              className="h-[861px] w-[1280px] object-cover"
+            />
+          </div>
 
-        <div className="flex h-screen flex-col">
           <main className="flex-1">
             <AppProvider>
               {children}

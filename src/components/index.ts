@@ -1,4 +1,5 @@
 export * from './banner'
+export * from './errors'
 export * from './footer'
 export * from './hero'
 export * from './logo-adf'

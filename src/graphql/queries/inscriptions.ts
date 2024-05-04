@@ -23,6 +23,27 @@ export const inscriptionsQuery = gql`
   }
 `
 
+export interface InscriptionQueryProps {
+  lecture: InscriptionsDTO
+}
+
+export interface InscriptionVariables {
+  id: string
+}
+
+export const getInscriptionQuery = gql`
+  query GetInscription($id: ID!) {
+    lecture(where: { id: $id }) {
+      id
+      name
+      isCristian
+      church
+      isGuests
+      guests
+    }
+  }
+`
+
 export interface TotalInscriptionsQueryProps {
   lectures: Array<{
     id: string
