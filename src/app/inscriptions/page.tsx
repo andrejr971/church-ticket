@@ -1,6 +1,6 @@
 import { ButtonExport, TableInscriptions, Totals } from './components'
 
-export const revalidate = 5
+export const revalidate = 0
 
 export default function Inscriptions() {
   return (
