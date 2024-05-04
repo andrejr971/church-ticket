@@ -29,16 +29,11 @@ export function ButtonShared() {
         .then((response) => response.blob())
         .then((blob) => {
           const file = new File([blob], 'banner.jpg', { type: 'image/jpg' })
-          navigator
-            .share({
-              files: [file],
-              title: 'Banner',
-              text: 'Aqui está o seu banner.',
-            })
-            .then(() => console.log('Arquivo compartilhado com sucesso!'))
-            .catch((error) =>
-              console.log('Erro ao compartilhar o arquivo', error),
-            )
+          navigator.share({
+            files: [file],
+            title: 'Banner',
+            text: message,
+          })
         })
     } else {
       window.location.href = `${url}?text=${encodeURIComponent(message)}&img=${
